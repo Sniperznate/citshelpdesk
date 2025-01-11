@@ -1,21 +1,39 @@
 <?php
+// Database connection settings
 $host = getenv('DB_HOST');
-$port = getenv('DB_PORT');
 $username = getenv('DB_USER');
 $password = getenv('DB_PASSWORD');
 $dbname = getenv('DB_NAME');
 
-// Create connection
-$conn = new mysqli($host, $username, $password, $dbname, $port);
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Get the raw POST data
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $full_name = $data['full_name'];
+        $phone_number = $data['phone_number'];
+        $email = $data['email'];
+        $trade = $data['trade'];
+        $password = password_hash($data['password'], PASSWORD_BCRYPT); // Hash the password
+
+        $stmt = $conn->prepare("INSERT INTO user (full_name, phone_number, email, trade, password_hash) 
+                                VALUES (:full_name, :phone_number, :email, :trade, :password)");
+        $stmt->bindParam(':full_name', $full_name);
+        $stmt->bindParam(':phone_number', $phone_number);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':trade', $trade);
+        $stmt->bindParam(':password', $password);
+
+        if ($stmt->execute()) {
+            echo json_encode(["success" => true, "message" => "User registered successfully"]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Error registering user"]);
+        }
+    }
+} catch (PDOException $e) {
+    echo json_encode(["success" => false, "message" => $e->getMessage()]);
 }
-else {
-    echo "Connection established!!!";
-}
-
-$result = $conn->query("SHOW TABLES");
-
 ?>
