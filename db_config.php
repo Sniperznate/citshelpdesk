@@ -1,14 +1,18 @@
 <?php
-$servername = "sql210.infinityfree.com"; // MySQL server
-$username = "if0_37970113"; // your database username
-$password = "33012004 "; // your database password
-$dbname = "user_db"; // your database name
+$host = getenv('DB_HOST');
+$port = getenv('DB_PORT');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASSWORD');
+$dbname = getenv('DB_NAME');
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname, $port);
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+$result = $conn->query("SHOW TABLES");
+
 ?>
