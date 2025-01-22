@@ -13,11 +13,11 @@ try {
         // Get the raw POST data
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $full_name = $data['full_name'] ?? null;
-        $phone_number = $data['phone_number'] ?? null;
-        $email = $data['email'] ?? null;
-        $trade = $data['trade'] ?? null;
-        $password = password_hash($data['password'], PASSWORD_BCRYPT) ?? null; // Hash the password
+        $full_name = $data['full_name'];
+        $phone_number = $data['phone_number'];
+        $email = $data['email'];
+        $trade = $data['trade'];
+        $password = password_hash($data['password'], PASSWORD_BCRYPT); // Hash the password
 
         $stmt = $conn->prepare("INSERT INTO user (full_name, phone_number, email, trade, password_hash) 
                                 VALUES (:full_name, :phone_number, :email, :trade, :password)");
