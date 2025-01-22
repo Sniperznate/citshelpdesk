@@ -13,6 +13,8 @@ try {
         // Get the raw POST data
         $data = json_decode(file_get_contents("php://input"), true);
 
+        file_put_contents('php://stdout', print_r($data, true)); // Log the incoming data for debugging
+
         // Check if any of the required fields are empty before proceeding
         if (empty($data['full_name']) || empty($data['phone_number']) || empty($data['email']) || empty($data['trade']) || empty($data['password'])) {
             echo json_encode(["success" => false, "message" => "All fields are required"]);
