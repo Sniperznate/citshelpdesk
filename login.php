@@ -1,9 +1,9 @@
 <?php
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "your_database_name"; // Replace with your database name
+// Load environment variables for database credentials
+$host = getenv('DB_HOST');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASSWORD');
+$dbname = getenv('DB_NAME');
 
 // Set headers for JSON response
 header('Content-Type: application/json; charset=utf-8');
