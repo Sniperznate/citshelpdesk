@@ -16,10 +16,10 @@ try {
         file_put_contents('php://stdout', print_r($data, true)); // Log the incoming data for debugging
 
         // Check if any of the required fields are empty before proceeding
-        if (empty($data['full_name']) || empty($data['phone_number']) || empty($data['email']) || empty($data['trade']) || empty($data['password'])) {
-            echo json_encode(["success" => false, "message" => "All fields are required"]);
-            exit();
-        }
+        // if (empty($data['full_name']) || empty($data['phone_number']) || empty($data['email']) || empty($data['trade']) || empty($data['password'])) {
+        //     echo json_encode(["success" => false, "message" => "All fields are required"]);
+        //     exit();
+        // }
 
         // Extract data from the validated payload
         $full_name = $data['full_name'];
