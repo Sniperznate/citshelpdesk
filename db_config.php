@@ -27,6 +27,11 @@ try {
         $stmt->bindParam(':trade', $trade);
         $stmt->bindParam(':password', $password);
 
+        if (empty($full_name) || empty($phone_number) || empty($email) || empty($trade) || empty($data['password'])) {
+            echo json_encode(["success" => false, "message" => "All fields are required"]);
+            exit();
+        }
+
         if ($stmt->execute()) {
             echo json_encode(["success" => true, "message" => "User registered successfully"]);
         } else {
