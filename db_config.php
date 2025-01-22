@@ -13,25 +13,31 @@ try {
         // Get the raw POST data
         $data = json_decode(file_get_contents("php://input"), true);
 
+        // Check if any of the required fields are empty before proceeding
+        if (empty($data['full_name']) || empty($data['phone_number']) || empty($data['email']) || empty($data['trade']) || empty($data['password'])) {
+            echo json_encode(["success" => false, "message" => "All fields are required"]);
+            exit();
+        }
+
+        // Extract data from the validated payload
         $full_name = $data['full_name'];
         $phone_number = $data['phone_number'];
         $email = $data['email'];
         $trade = $data['trade'];
         $password = password_hash($data['password'], PASSWORD_BCRYPT); // Hash the password
 
+        // Prepare the SQL statement
         $stmt = $conn->prepare("INSERT INTO user (full_name, phone_number, email, trade, password_hash) 
                                 VALUES (:full_name, :phone_number, :email, :trade, :password)");
+
+        // Bind parameters to the SQL statement
         $stmt->bindParam(':full_name', $full_name);
         $stmt->bindParam(':phone_number', $phone_number);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':trade', $trade);
         $stmt->bindParam(':password', $password);
 
-        if (empty($full_name) || empty($phone_number) || empty($email) || empty($trade) || empty($data['password'])) {
-            echo json_encode(["success" => false, "message" => "All fields are required"]);
-            exit();
-        }
-
+        // Execute the statement and check if successful
         if ($stmt->execute()) {
             echo json_encode(["success" => true, "message" => "User registered successfully"]);
         } else {
