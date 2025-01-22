@@ -8,14 +8,14 @@ $dbname = getenv('DB_NAME');
 // Set headers for JSON response
 header('Content-Type: application/json; charset=utf-8');
 
-// try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-//     // Set the PDO error mode to exception
-//     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-// } catch (PDOException $e) {
-//     echo json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]);
-//     exit();
-// }
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    // Set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]);
+    exit();
+}
 
 // Handle POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
