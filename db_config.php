@@ -23,6 +23,7 @@ try {
         $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $trade = htmlspecialchars($data['trade'], ENT_QUOTES, 'UTF-8');
         $password = password_hash($data['password'], PASSWORD_BCRYPT); // Hash the password
+        error_log("Stored Hash: " . $user['password_hash']);
 
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
