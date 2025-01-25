@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Fetch user data securely
-        $stmt = $conn->prepare("SELECT user_id, full_name, phone_number, password_hash FROM user WHERE phone_number = :phone_number");
+        $stmt = $conn->prepare("SELECT id, full_name, phone_number, password_hash FROM user WHERE phone_number = :phone_number");
         $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
         $stmt->execute();
 
