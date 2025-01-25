@@ -1,5 +1,3 @@
-<?php phpinfo(); ?>
-
 <?php
 // Load environment variables for database credentials
 $host = getenv('DB_HOST');
