@@ -66,5 +66,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     http_response_code(405); // Method Not Allowed
-    echo json_encode(["success" => false, "message" => "Invalid request method"]);
+    echo ("This file is meant to be used for the ser to login.");
 }
