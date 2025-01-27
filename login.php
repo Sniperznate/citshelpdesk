@@ -67,6 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             sleep(1); // Add a slight delay to mitigate brute force attacks
             http_response_code(401); // Unauthorized
             echo json_encode(["success" => false, "message" => "Invalid phone number or password"]);
+
+            if (password_verify($password, $user['password_hash'])){
+                echo json_encode(["success" => false, "message" => "Password matched."]);
+            }
         }
     } catch (PDOException $e) {
         error_log("Database query failed: " . $e->getMessage()); // Log the error
