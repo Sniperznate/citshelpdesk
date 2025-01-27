@@ -71,6 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (password_verify($password, $user['password_hash'])){
                 echo json_encode(["success" => false, "message" => "Password matched."]);
             }
+            else {
+                echo json_encode(["success" => false, "message" => "Password not matched."]);
+            }
         }
     } catch (PDOException $e) {
         error_log("Database query failed: " . $e->getMessage()); // Log the error
