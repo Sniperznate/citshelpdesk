@@ -60,7 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$user){
+        if ($user){
+            echo "user found";
+        } else {
             echo "user error";
         }
 
