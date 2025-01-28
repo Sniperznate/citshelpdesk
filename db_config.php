@@ -56,13 +56,67 @@ try {
         } else {
             echo json_encode(["success" => false, "message" => "Error registering user"]);
         }
+    }
+    // Handle POST request
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Parse JSON input
+        $raw_input = file_get_contents("php://input");
+        error_log("Raw Input Data: " . $raw_input); // Log raw input data
+    
+        $data = json_decode($raw_input, true);
+        if ($data === null) {
+            error_log("JSON Decode Error: " . json_last_error_msg()); // Log JSON errors
+            http_response_code(400); // Bad Request
+            echo json_encode(["success" => false, "message" => "Invalid JSON format"]);
+            exit();
+        }
+    
+        $phone_number = $data['phone_number'] ?? null;
+        $password = $data['password'] ?? null;
+    
+        // Validate inputs
+        if (empty($phone_number) || empty($password)) {
+            error_log("Invalid Input - Phone: $phone_number, Password: $password"); // Log invalid input
+            http_response_code(400); // Bad Request
+            echo json_encode(["success" => false, "message" => "Phone number and password are required"]);
+            exit();
+        }
+    
+        if (!preg_match('/^[0-9]{10}$/', $phone_number)) {
+            error_log("Invalid Phone Number Format: $phone_number"); // Log invalid phone format
+            http_response_code(400); // Bad Request
+            echo json_encode(["success" => false, "message" => "Invalid phone number format"]);
+            exit();
+        }
+    
+        try {
+            // Fetch user data securely
+            $stmt = $conn->prepare("SELECT id, full_name, phone_number, password_hash FROM user WHERE phone_number = :phone_number");
+            $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
+            $stmt->execute();
+    
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($user && password_verify($password, $user['password_hash'])) {
+                unset($user['password_hash']); // Remove sensitive data before sending the response
+                echo json_encode(["success" => true, "message" => "Login successful", "user" => $user]);
+            } else {
+                sleep(1); // Add a slight delay to mitigate brute force attacks
+                http_response_code(401); // Unauthorized
+                echo json_encode(["success" => false, "message" => "Invalid phone number or password"]);
+            }
+        } catch (PDOException $e) {
+            error_log("Database query failed: " . $e->getMessage()); // Log the error
+            http_response_code(500); // Internal Server Error
+            echo json_encode(["success" => false, "message" => "An error occurred while processing your request"]);
+        }
     } else {
-        // Handle unsupported request methods
+        http_response_code(405); // Method Not Allowed
         echo json_encode(["success" => false, "message" => "Invalid request method"]);
     }
-} catch (PDOException $e) {
-    // Handle database exceptions securely
-    error_log($e->getMessage()); // Log the error (do not expose details to the user)
-    echo json_encode(["success" => false, "message" => "An internal server error occurred"]);
-}
+    } catch (PDOException $e) {
+        // Handle database exceptions securely
+        error_log($e->getMessage()); // Log the error (do not expose details to the user)
+        echo json_encode(["success" => false, "message" => "An internal server error occurred"]);
+    }
 ?>
