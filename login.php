@@ -59,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $password = trim($password);
         
         if ($user && password_verify($password, $user['password_hash'])) {
             unset($user['password_hash']); // Remove sensitive data before sending the response
