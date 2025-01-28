@@ -60,9 +60,9 @@ try {
         http_response_code(405); // Method Not Allowed
         echo json_encode(["success" => false, "message" => "Invalid request method"]);
     }
-    } catch (PDOException $e) {
-        // Handle database exceptions securely
-        error_log($e->getMessage()); // Log the error (do not expose details to the user)
-        echo json_encode(["success" => false, "message" => "An internal server error occurred"]);
-    }
+} catch (PDOException $e) {
+    // Handle database exceptions securely
+    error_log($e->getMessage()); // Log the error (do not expose details to the user)
+    echo json_encode(["success" => false, "message" => "An internal server error occurred"]);
+}
 ?>
