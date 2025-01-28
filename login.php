@@ -60,6 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        if (!$user){
+            echo "user error";
+        }
+
         if ($user && password_verify($password, $user['password_hash'])) {
             unset($user['password_hash']); // Remove sensitive data before sending the response
             echo json_encode(["success" => true, "message" => "Login successful", "user" => $user]);
