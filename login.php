@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $password = trim($password);
 
-        if ($user && password_verify("3301_Cits", $user['password_hash'])) {
+        if ($user && password_verify($password, $user['password_hash'])) {
             unset($user['password_hash']); // Remove sensitive data before sending the response
             http_response_code(200); // OK
             echo json_encode(["status" => "success", "message" => "Login successful", "user" => $user]);
