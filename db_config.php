@@ -19,7 +19,7 @@ try {
         $phone_number = htmlspecialchars($data['phone_number'], ENT_QUOTES, 'UTF-8');
         $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $trade = htmlspecialchars($data['trade'], ENT_QUOTES, 'UTF-8');
-        $password = hashed_password($data['password'], PASSWORD_BCRYPT); // Hash the password
+        $password = password_hash($data['password'], PASSWORD_BCRYPT); // Hash the password
 
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
