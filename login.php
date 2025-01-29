@@ -54,16 +54,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Fetch user data securely
-        $stmt = $conn->prepare("SELECT id, full_name, phone_number, password_hash FROM user WHERE phone_number = :phone_number");
+        $stmt = $conn->prepare("SELECT id, full_name, phone_number, hashed_password FROM user WHERE phone_number = :phone_number");
         $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
         $stmt->execute();
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $password = trim($password);
-
-        if ($user && password_verify($password, $user['password_hash'])) {
-            unset($user['password_hash']); // Remove sensitive data before sending the response
+        if ($user && password_verify($password, $user['hashed_password'])) {
+            unset($user['hashed_password']); // Remove sensitive data before sending the response
             http_response_code(200); // OK
             echo json_encode(["status" => "success", "message" => "Login successful", "user" => $user]);
         } else {
