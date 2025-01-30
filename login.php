@@ -16,7 +16,7 @@ try {
 } catch (PDOException $e) {
     error_log("Database connection failed: " . $e->getMessage()); // Log the error
     http_response_code(500); // Internal Server Error
-    echo json_encode(["status" => "error", "message" => "Unable to connect to the database"]);
+    echo json_encode(["success" => "error", "message" => "Unable to connect to the database"]);
     exit();
 }
 
@@ -24,13 +24,11 @@ try {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Parse JSON input
     $raw_input = file_get_contents("php://input");
-    error_log("Raw Input Data: " . $raw_input); // Log raw input data
-
     $data = json_decode($raw_input, true);
     if ($data === null) {
         error_log("JSON Decode Error: " . json_last_error_msg()); // Log JSON errors
         http_response_code(400); // Bad Request
-        echo json_encode(["status" => "error", "message" => "Invalid JSON format"]);
+        echo json_encode(["success" => "error", "message" => "Invalid JSON format"]);
         exit();
     }
 
@@ -41,14 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($phone_number) || empty($password)) {
         error_log("Invalid Input - Phone: $phone_number, Password: $password"); // Log invalid input
         http_response_code(400); // Bad Request
-        echo json_encode(["status" => "error", "message" => "Phone number and password are required"]);
+        echo json_encode(["success" => "error", "message" => "Phone number and password are required"]);
         exit();
     }
 
     if (!preg_match('/^[0-9]{10}$/', $phone_number)) {
         error_log("Invalid Phone Number Format: $phone_number"); // Log invalid phone format
         http_response_code(400); // Bad Request
-        echo json_encode(["status" => "error", "message" => "Invalid phone number format"]);
+        echo json_encode(["success" => "error", "message" => "Invalid phone number format"]);
         exit();
     }
 
@@ -67,14 +65,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             sleep(1); // Add a slight delay to mitigate brute force attacks
             http_response_code(401); // Unauthorized
-            echo json_encode(["status" => "error", "message" => "Invalid phone number or password"]);
+            echo json_encode(["success" => "error", "message" => "Invalid phone number or password"]);
         }
     } catch (PDOException $e) {
         error_log("Database query failed: " . $e->getMessage()); // Log the error
         http_response_code(500); // Internal Server Error
-        echo json_encode(["status" => "error", "message" => "An error occurred while processing your request"]);
+        echo json_encode(["success" => "error", "message" => "An error occurred while processing your request"]);
     }
 } else {
     http_response_code(405); // Method Not Allowed
-    echo json_encode(["status" => "error", "message" => "Invalid request method"]);
+    echo json_encode(["success" => "error", "message" => "Invalid request method"]);
 }
