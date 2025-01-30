@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user && password_verify($password, $user['hashed_password'])) {
             unset($user['hashed_password']); // Remove sensitive data before sending the response
             http_response_code(200); // OK
-            echo json_encode(["status" => "success", "message" => "Login successful", "user" => $user]);
+            echo json_encode(["success" => "success", "message" => "Login successful", "user" => $user]);
         } else {
             sleep(1); // Add a slight delay to mitigate brute force attacks
             http_response_code(401); // Unauthorized
