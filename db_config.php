@@ -14,9 +14,6 @@ try {
         // Decode the JSON payload
         $data = json_decode(file_get_contents("php://input"), true);
 
-        // Log incoming data for debugging (optional; ensure logging is secured)
-        // file_put_contents('php://stdout', print_r($data, true));
-
         // Sanitize and extract input data
         $full_name = htmlspecialchars($data['full_name'], ENT_QUOTES, 'UTF-8');
         $phone_number = htmlspecialchars($data['phone_number'], ENT_QUOTES, 'UTF-8');

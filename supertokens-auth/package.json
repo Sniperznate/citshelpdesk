@@ -1,0 +1,21 @@
+{
+  "name": "supertokens-auth",
+  "version": "1.0.0",
+  "description": "Supertokens authentication backend",
+  "main": "app.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": "18.x"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "supertokens-node": "^21.1.0"
+  }
+}
