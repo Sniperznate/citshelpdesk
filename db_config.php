@@ -17,19 +17,19 @@ try {
         // Log incoming data for debugging (optional; ensure logging is secured)
         // file_put_contents('php://stdout', print_r($data, true));
 
-        // Validate required fields
-        if (empty($data['full_name']) || empty($data['phone_number']) || empty($data['email']) || empty($data['trade']) || empty($data['password'])) {
-            echo json_encode(["success" => false, "message" => "All fields are required"]);
-            exit();
-        }
-
         // Sanitize and extract input data
         $full_name = htmlspecialchars($data['full_name'], ENT_QUOTES, 'UTF-8');
         $phone_number = htmlspecialchars($data['phone_number'], ENT_QUOTES, 'UTF-8');
         $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $trade = htmlspecialchars($data['trade'], ENT_QUOTES, 'UTF-8');
         $password = password_hash($data['password'], PASSWORD_BCRYPT); // Hash the password
-
+        
+        // Validate required fields
+        if (empty($data['full_name']) || empty($data['phone_number']) || empty($data['email']) || empty($data['trade']) || empty($data['password'])) {
+            echo json_encode(["success" => false, "message" => "All fields are required"]);
+            exit();
+        }
+        
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             echo json_encode(["success" => false, "message" => "Invalid email format"]);
