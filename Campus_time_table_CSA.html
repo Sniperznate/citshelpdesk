@@ -3,9 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time table CSA (Campus)</title>
+    <title>Time Table CSA (Campus)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .work_area {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="work_area">
+        <h2>Time Table CSA (Campus)</h2>
+        <table>
+            <tr>
+                <th>Time Slot</th>
+                <th>Batch 1</th>
+                <th>Batch 2</th>
+            </tr>
+            <tr>
+                <td>09:00 A.M. - 11:00 A.M.</td>
+                <td>Trade Theory/Practical</td>
+                <td>P.O.T.</td>
+            </tr>
+            <tr>
+                <td>11:00 A.M. - 11:10 A.M.</td>
+                <td colspan="2">Tea Break</td>
+            </tr>
+            <tr>
+                <td>11:10 A.M. - 01:00 P.M.</td>
+                <td>Trade Theory/Practical</td>
+                <td>P.O.T.</td>
+            </tr>
+            <tr>
+                <td>01:00 P.M. - 02:00 P.M.</td>
+                <td colspan="2">Lunch Break</td>
+            </tr>
+            <tr>
+                <td>02:00 P.M. - 04:00 P.M.</td>
+                <td>P.O.T.</td>
+                <td>Trade Theory/Practical</td>
+            </tr>
+            <tr>
+                <td>04:00 P.M. - 04:10 P.M.</td>
+                <td colspan="2">Tea Break</td>
+            </tr>
+            <tr>
+                <td>04:10 P.M. - 05:30 P.M.</td>
+                <td>P.O.T.</td>
+                <td>Trade Theory/Practical</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
