@@ -52,12 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Fetch user data securely
-        $stmt = $conn->prepare("SELECT id, full_name, phone_number, hashed_password FROM user WHERE phone_number = :phone_number");
+        $stmt = $conn->prepare("SELECT id, full_name, phone_number, email, trade, hashed_password FROM user WHERE phone_number = :phone_number");
         $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
         $stmt->execute();
-
+    
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    
         if ($user && password_verify($password, $user['hashed_password'])) {
             unset($user['hashed_password']); // Remove sensitive data before sending the response
             http_response_code(200); // OK
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error_log("Database query failed: " . $e->getMessage()); // Log the error
         http_response_code(500); // Internal Server Error
         echo json_encode(["success" => "false", "message" => "An error occurred while processing your request"]);
-    }
+    }    
 } else {
     http_response_code(405); // Method Not Allowed
     echo json_encode(["success" => "false", "message" => "Invalid request method"]);
