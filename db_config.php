@@ -63,17 +63,6 @@ try {
             exit();
         }
 
-        // Check if the email already exists
-        $emailCheckQuery = "SELECT COUNT(*) FROM user WHERE email = :email";
-        $emailCheckStmt = $conn->prepare($emailCheckQuery);
-        $emailCheckStmt->bindParam(':email', $email);
-        $emailCheckStmt->execute();
-        if ($emailCheckStmt->fetchColumn() > 0) {
-            http_response_code(409);
-            echo json_encode(["success" => false, "message" => "Email is already registered"]);
-            exit();
-        }
-
         // Prepare the SQL statement for insertion
         $stmt = $conn->prepare("INSERT INTO user (full_name, phone_number, email, trade, hashed_password) 
                                 VALUES (:full_name, :phone_number, :email, :trade, :hashed_password)");
