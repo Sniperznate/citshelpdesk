@@ -5,19 +5,19 @@ Welcome to **CITS Helpdesk**, the perfect solution for streamlined technical sup
 ## Features
 
 ### Time Table
-![Time Table]<img src="CITS%20(1).jpg" width="400px">
+<img src="CITS%20(1).jpg" height="400px">
 View and access the latest class schedules, including subjects, timings, and break details, ensuring you never miss an important session.
 
 ### Books
-![Books](CITS%20(2).jpg)
+<img src="CITS%20(2).jpg" height="400px">
 Browse and access study materials, e-books, and reference guides relevant to your course to enhance learning.
 
 ### Complaint and Suggestion Box
-![Complaint and Suggestion Box](CITS%20(3).jpg)
+<img src="CITS%20(3).jpg" height="400px">
 Submit feedback, complaints, or suggestions directly through the app to improve the academic environment and facilities.
 
 ### AI Chatbot
-![AI Chatbot](CITS%20(4).jpg)
+<img src="CITS%20(4).jpg" height="400px">
 Get instant answers to your queries related to the institute, course, or general academic support through an AI-powered chatbot.
 
 ## Download
