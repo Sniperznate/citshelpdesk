@@ -5,7 +5,7 @@ Welcome to **CITS Helpdesk**, the perfect solution for streamlined technical sup
 ## Features
 
 ### Time Table
-![Time Table](CITS%20(1).jpg)
+![Time Table]<img src="CITS%20(1).jpg" width="400px">
 View and access the latest class schedules, including subjects, timings, and break details, ensuring you never miss an important session.
 
 ### Books
