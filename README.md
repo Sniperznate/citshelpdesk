@@ -21,9 +21,9 @@ Submit feedback, complaints, or suggestions directly through the app to improve 
 Get instant answers to your queries related to the institute, course, or general academic support through an AI-powered chatbot.
 
 ## Download
-Click the button below to download the app:
+Click the link below to download the app:
 
-[![Download APK](https://github.com/Sniperznate/citshelpdesk/releases/download/v1.0.0/CITShelpdesk.apk)](https://github.com/Sniperznate/citshelpdesk/releases/download/v1.0.0/CITShelpdesk.apk)
+(https://github.com/Sniperznate/citshelpdesk/releases/download/v1.0.0/CITShelpdesk.apk)
 
 ## About CITS Helpdesk
 CITS Helpdesk is a user-friendly mobile application designed to streamline and simplify technical support for aspiring individuals in the **Craftsmen Instructor Training Scheme**. Whether you need IT assistance, troubleshooting, or guidance, CITS Helpdesk has got you covered with its intuitive features and seamless experience.
